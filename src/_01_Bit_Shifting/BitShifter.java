@@ -5,11 +5,12 @@ import javax.swing.JOptionPane;
 public class BitShifter {
 	public static void main(String[] args) {
 		// 1. Jot down the value of num in binary.
-		int num = 5;
-		int numShifted = num << 1;
 		
-		System.out.println(binaryConverter(Integer.parseInt(JOptionPane.showInputDialog("Enter an Int to Convert"))));
-		
+		int num = Integer.parseInt(JOptionPane.showInputDialog("Enter an Int to Convert"));
+		int numBinary = Integer.parseInt(binaryConverter(num));
+		System.out.println(numBinary);
+		int numShifted = num >> 2;
+		System.out.println(Integer.parseInt(binaryConverter(numShifted)));
 	}
 	
 	public static String binaryConverter(int num) {
