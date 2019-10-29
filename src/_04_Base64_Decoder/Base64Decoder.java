@@ -27,16 +27,26 @@ public class Base64Decoder {
 	
 	
 	final static char[] base64Chars = {
-		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
-		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+		'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+		'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 
+		'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 
+		'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
+		'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', 
+		'8', '9', '+', '/'
 	};
 	
 	//1. Complete this method so that it returns the the element in
 	//   the base64Chars array that corresponds to the passed in char.
 	public static byte convertBase64Char(char c){
+		System.out.println("letter: " + c);
+		for (int i = 0; i < base64Chars.length; i++) {
+			System.out.println(base64Chars[i]);
+			System.out.println(i);
+			if (c == base64Chars[i]) {
+				return (byte) i;
+			}
+		}
 		return 0;
 	}
 	
@@ -44,7 +54,37 @@ public class Base64Decoder {
 	//   characters long and return an array of 3 bytes (24 bits). The byte 
 	//   array should be the binary value of the encoded characters.
 	public static byte[] convert4CharsTo24Bits(String s){
-		return null;
+		byte num1 = 0;
+		byte num2 = 0;
+		byte num3 = 0;
+		byte num4 = 0;
+		System.out.println(s);
+		
+		byte[] nums = new byte[]{};
+		
+		
+		for (int i = 0; i < base64Chars.length; i++) {
+			System.out.println(base64Chars[i]);
+			System.out.println(i);
+			if (s.charAt(0) == base64Chars[i]) {
+				String num = "";
+				int ii = i;
+				System.out.println("meep"+i);
+				System.out.println("moop"+ii);
+				while (ii != 0) {
+					if ((ii & 1) == 1) {
+						num = "1" + num;
+					}
+					else num = "0" + num;
+					ii = (byte) (ii >> 1);
+				}
+					System.out.println("yeeeeeeeeeeet"+num);
+					num1 = (byte) Integer.parseInt(num);
+					nums.
+			}
+		}
+		
+		return nums;
 	}
 	
 	//3. Complete this method so that it takes in a string of any length
