@@ -39,10 +39,10 @@ public class Base64Decoder {
 	//1. Complete this method so that it returns the the element in
 	//   the base64Chars array that corresponds to the passed in char.
 	public static byte convertBase64Char(char c){
-		System.out.println("letter: " + c);
+		//System.out.println("letter: " + c);
 		for (int i = 0; i < base64Chars.length; i++) {
-			System.out.println(base64Chars[i]);
-			System.out.println(i);
+			//System.out.print(base64Chars[i]);
+			//System.out.println(" "+i);
 			if (c == base64Chars[i]) {
 				return (byte) i;
 			}
@@ -54,23 +54,65 @@ public class Base64Decoder {
 	//   characters long and return an array of 3 bytes (24 bits). The byte 
 	//   array should be the binary value of the encoded characters.
 	public static byte[] convert4CharsTo24Bits(String s){
-		byte input1 = 0;
-		byte input2 = 0;
-		byte input3 = 0;
-		byte input4 = 0;
+		
 		
 		System.out.println(s);
 		
+		int[] input = new int[4];
 		byte[] output = new byte[3];
+		System.out.println("test1");
 		
-		String arrayOfValues = "000000000000000000000000";
+		for (int j = 0; j < s.length(); j++) {
+			System.out.println("characterConvertedToBase64   "+convertBase64Char(s.charAt(j)));
+			System.out.println("numAddedToByte  "+Integer.parseInt(printBinary(convertBase64Char(s.charAt(j)))));
+			input[j] = Integer.parseInt(printBinary(convertBase64Char(s.charAt(j))));
+		}
+		
+		System.out.println("test2");
+		
+		double arrayOfValues = 0;
+		
+		for (int i = 0; i < input.length; i++) {
+			System.out.println(input[i]);
+			System.out.println(arrayOfValues);
+			System.out.println("power     "+pow(10, 6));
+			arrayOfValues = ((arrayOfValues)*pow(10, 6))+input[i];
+			System.out.println("array   "+arrayOfValues);
+		}
 		
 		
-		String setter = arrayOfValues.substring(0, 8);
-		System.out.println(setter);
-		
-		
+		for (int i = 0; i < output.length; i++) {
+			output[i] = (byte) (arrayOfValues % pow(10, (3-i)*8));
+			System.out.println("value  "+pow(10, (2-i)*8));
+			System.out.println("value1  "+(arrayOfValues % pow(10, (3-i)*8)));
+			System.out.println("value2  "+output[i]);
+		}
+		System.out.println("test3");
 		return output;
+	}
+	
+	static double pow (double a, double b) {
+		 if ( b == 0)        return 1;
+		    if ( b == 1)        return a;
+		    if (b%2 == 0)    return     pow ( a * a, b/2); //even a=(a^2)^b/2
+		    else                return a * pow ( a * a, b/2); //odd  a=a*(a^2)^b/2
+	}
+	
+	public static String printBinary(long b) {
+		String num = "";
+		if (b == 0) {
+			num = "0" + num;
+		}
+		else while (b != 0) {
+			if ((b & 1) == 1) {
+				num = "1" + num;
+			}
+			else num = "0" + num;
+			b = (long) (b >> 1);
+		}
+			System.out.println("OutputFromPrintByBinary   "+num);
+			return num;
+	}
 		/*
 		for (int i = 0; i < base64Chars.length; i++) {
 			System.out.println(base64Chars[i]);
@@ -101,7 +143,6 @@ public class Base64Decoder {
 					
 		return numsie;
 		*/
-	}
 	
 	//3. Complete this method so that it takes in a string of any length
 	//   and returns the full byte array of the decoded base64 characters.
